@@ -33,13 +33,12 @@ public class Notepad
 	boolean wordWrap = false;
 	Font arial, newRoman, consolas;
 	String fontStyle = "Arial";
-	//String [] keywords = {""};
 	
 	public static void main(String[] args) 
 	{
-		Notepad n1 = new Notepad(); 						
+		Notepad n1 = new Notepad(); 									//Launches the program by creating an instance of the Notepad class.
 	}
-	public Notepad()														//constructor
+	public Notepad()													//constructor . Initializes the GUI and its components.
 	{
 		createFrame();
 		createTextArea();
@@ -52,7 +51,7 @@ public class Notepad
 		
 	}
 	
-	public void createFrame()
+	public void createFrame()											//Sets up the main application window with size, title, and icon.
 	{
 		frame = new JFrame("Notepad");
 		
@@ -67,21 +66,21 @@ public class Notepad
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
-	public void createTextArea()
+	public void createTextArea()										//Adds a text area for user input.
 	{
 		textArea = new JTextArea();
 		textArea.setFont(new Font("Arial", Font.PLAIN, 30));
 		frame.add(textArea);
 	}
 							
-	public void createScrollBar()
+	public void createScrollBar()										//Adds scrollbars to the text area.
 	{
 		JScrollPane scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		frame.add(scroll);	
 	}
 	
 	// Creating Menu Bar and adding contents to it
-	public void createMenuBar()
+	public void createMenuBar()											// Adds menus for file, language, format, and command prompt.
 	{
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -100,10 +99,10 @@ public class Notepad
 	}
 
 	//File Menu Items
-	public void createFileMenuItems()
+	public void createFileMenuItems()									
 	{
 		
-		itemNew = new JMenuItem("New");
+		itemNew = new JMenuItem("New");							//Implements "New" functionality to clear the text area and reset the file path.
 		fileMenu.add(itemNew);
 		
 		itemNew.addActionListener(new ActionListener() 
@@ -131,14 +130,14 @@ public class Notepad
 			}
 		});
 		
-		itemOpen = new JMenuItem("Open");
+		itemOpen = new JMenuItem("Open");					//Implements "Open" functionality using FileDialog.
 		fileMenu.add(itemOpen);
 		itemOpen.addActionListener(new ActionListener() 
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				FileDialog fd = new FileDialog(frame, "Open", FileDialog.LOAD);       // For openening a file 
+				FileDialog fd = new FileDialog(frame, "Open", FileDialog.LOAD);       // Open FileDialog to select a file and load its contents into textArea.
 				fd.setVisible(true);
 				
 				String fileName = fd.getFile();	 			// Reading FileName
@@ -199,8 +198,8 @@ public class Notepad
 				}
 			}
 		});
-		
-		itemSave = new JMenuItem("Save");
+				
+		itemSave = new JMenuItem("Save");							//Saves file content.
 		fileMenu.add(itemSave);
 		
 		itemSave.addActionListener(new ActionListener() 
@@ -209,7 +208,7 @@ public class Notepad
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				if(openFileName != null && openPath != null)
+				if(openFileName != null && openPath != null)		// Save the file if already opened; otherwise, invoke "Save As".
 				{
 					writeDataToFile(openFileName, openPath);
 				}
@@ -274,7 +273,7 @@ public class Notepad
 		});
 	}
 	
-	public void createLangMenuItems()
+	public void createLangMenuItems()					
 	{
 		itemJava = new JMenuItem("Java");
 		langMenu.add(itemJava);
@@ -334,9 +333,9 @@ public class Notepad
 		});
 	}
 	
-	public void setLanguage(String lang)
+	public void setLanguage(String lang)				
 	{
-		BufferedReader br=null;
+		BufferedReader be = null;			// Reads content from a predefined file and displays it in the text area
 		try 
 		{
 			br = new BufferedReader(new FileReader("D:\\filehandle\\" + lang + "Format.txt"));
@@ -381,7 +380,7 @@ public class Notepad
 	// Format Menu Items
 	public void createFormatMenuItems()
 	{
-		itemWordWrap = new JMenuItem("WordWrap: Off");
+		itemWordWrap = new JMenuItem("WordWrap: Off");		//Customize word wrap, fonts, and font sizes.
 		formatMenu.add(itemWordWrap);
 		
 		itemWordWrap.addActionListener(new ActionListener() {
@@ -641,7 +640,7 @@ public class Notepad
 		}
 	}
 	
-	public void createCommandPromptItem()
+	public void createCommandPromptItem()			//Opens a command prompt window at the file's directory.
 	{
 		itemCMD = new JMenuItem("Open Cmd");
 		
@@ -678,7 +677,7 @@ public class Notepad
 		commandPromptMenu.add(itemCMD);
 	}
 	
-	public void writeDataToFile(String fileName, String path)
+	public void writeDataToFile(String fileName, String path)		// Writes the textArea content to the specified file.
 	{
 		BufferedWriter bw = null;
 		try 
